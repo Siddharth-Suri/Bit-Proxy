@@ -1,0 +1,28 @@
+{
+	"server": {
+		"port":  8080
+	},
+	"backends":[
+		{ 
+			"url": "http://localhost:3001",
+			"weight": 1 
+		},
+		{ 
+			"url": "http://localhost:3002",
+			"weight": 2 
+		},
+		{ 
+			"url": "http://localhost:3003",
+			"weight": 1 
+		}
+	],
+	"rateLimit":{
+		"token": 100,
+		"refill": 10
+	},
+	"healthCheck": {
+		"intervalMs": 5000,
+		"timeoutMs": 2000
+	  }
+
+}
