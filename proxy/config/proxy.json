@@ -17,8 +17,8 @@
 		}
 	],
 	"rateLimit":{
-		"token": 100,
-		"refill": 10
+		"totalTokens": 100,
+		"refillRate": 10
 	},
 	"healthCheck": {
 		"intervalMs": 5000,
