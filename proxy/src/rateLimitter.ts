@@ -22,6 +22,11 @@ class tokenBucket {
         return true
     }
 
+    public isFull(){
+        this._refill()
+        return this.totalTokens >= this.capacity
+    }
+
     private _refill() {
         const currentTime = Date.now()
         const timeDifference = (currentTime - this.lastRefillTime)/1000
@@ -35,10 +40,9 @@ class tokenBucket {
     }
 }
 
-
-class rateLimiter {
-    private buckets
-    private configFile
+export class rateLimiter {
+    private buckets :  Map<string, tokenBucket>
+    private configFile : Config
 
     constructor(config: Config) {
         this.buckets = new Map()
@@ -49,13 +53,14 @@ class rateLimiter {
         },5*60*1000)
     }
 
-    public check (ipAddress:string){
+    public check (ipAddress:string) : boolean{
         if(!this.buckets.has(ipAddress)){
             this.buckets.set(ipAddress, new tokenBucket(
                 this.configFile.rateLimit.capacity,
                 this.configFile.rateLimit.refillRate
             ))
         }
+        return this.buckets.get(ipAddress)!.eat()
     }
 
     private _cleanup() {
@@ -63,7 +68,6 @@ class rateLimiter {
             if (bucket.isFull()) {
               this.buckets.delete(ip);
             }
-          }
+        }
     }
-
 }   

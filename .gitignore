@@ -1,0 +1,6 @@
+proxy/dist/
+node_modules/
+dist/
+*.js.map
+*.d.ts
+*.tsbuildinfo

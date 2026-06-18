@@ -26,7 +26,7 @@ export interface Config {
     rateLimit: RateLimit;
 }
   
-function loadConfig():JSON {
-    const parsed = JSON.parse(fs.readFileSync(path,"utf-8"));
+export function loadConfig():Config {
+    const parsed:Config = JSON.parse(fs.readFileSync(path,"utf-8"));
     return parsed
 }

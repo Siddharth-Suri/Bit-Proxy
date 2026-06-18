@@ -1,4 +1,3 @@
-import 
 interface Backend {
     url: string;
     weight: number;
@@ -36,7 +35,6 @@ export class LoadBalancer {
             }
 
             return backend.url;
-            
         }
     }
 }
