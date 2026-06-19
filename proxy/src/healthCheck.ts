@@ -26,7 +26,7 @@ async function checkBackendAlive(url: string) : Promise<boolean> {
     return isAlive
 }
 
-function updateBackends(BackendObject : LoadBalancer , interval : number) : void {
+export function updateBackends(BackendObject : LoadBalancer , interval : number) : void {
     setInterval(async()=>{
         await Promise.all(
             BackendObject.backends.map(async (backend) => {

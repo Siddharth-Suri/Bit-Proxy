@@ -8,7 +8,7 @@ export class LoadBalancer {
     public backends : Backend[]
     private currentIndex : number
     private currentWeight : number 
-    // need a remap function to again count totalbackends
+    
     constructor(backends:{url:string, weight: number}[]){
         this.backends = backends.map((b)=>({
             url: b.url,
@@ -17,7 +17,7 @@ export class LoadBalancer {
         }))
         this.currentIndex = 0;
         this.currentWeight = backends[0]?.weight ?? 0;
-
+        console.log("Load Balancer Created")
     }
 
     public next(): string | null{
