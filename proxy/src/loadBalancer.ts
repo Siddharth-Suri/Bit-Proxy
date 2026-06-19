@@ -1,4 +1,4 @@
-interface Backend {
+export interface Backend {
     url: string;
     weight: number;
     healthy: boolean;
