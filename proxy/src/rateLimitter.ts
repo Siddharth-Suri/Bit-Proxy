@@ -36,7 +36,7 @@ class tokenBucket {
             this.totalTokens + this.refillRate * timeDifference
         )
         
-        this.lastRefillTime = Date.now()
+        this.lastRefillTime = currentTime
     }
 }
 
