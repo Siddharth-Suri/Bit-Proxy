@@ -1,4 +1,4 @@
-import type {Config} from "./config.js"
+import type {Config} from "./config.ts"
 
 class tokenBucket {
     private capacity
@@ -40,7 +40,7 @@ class tokenBucket {
     }
 }
 
-export class rateLimiter {
+export class rateLimitter {
     private buckets :  Map<string, tokenBucket>
     private configFile : Config
 

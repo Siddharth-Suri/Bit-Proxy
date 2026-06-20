@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-const path = "../config/proxy.json"
+const path = "./proxy/config/proxy.json"
 
 interface Backend {
     url: string;

@@ -4,6 +4,10 @@
 	},
 	"backends":[
 		{ 
+			"url": "http://localhost:3000",
+			"weight": 3
+		},
+		{ 
 			"url": "http://localhost:3001",
 			"weight": 1 
 		},
@@ -14,14 +18,18 @@
 		{ 
 			"url": "http://localhost:3003",
 			"weight": 1 
+		},
+		{ 
+			"url": "http://localhost:3004",
+			"weight": 1 
 		}
 	],
 	"rateLimit":{
-		"totalTokens": 100,
+		"capacity": 100,
 		"refillRate": 10
 	},
 	"healthCheck": {
-		"intervalMs": 5000,
+		"intervalMs": 300000,
 		"timeoutMs": 2000
 	  }
 

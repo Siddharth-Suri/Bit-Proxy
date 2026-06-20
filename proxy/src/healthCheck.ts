@@ -1,7 +1,9 @@
 import http from "http"
-import type { Backend, LoadBalancer } from "./loadBalancer.js";
+import type { Backend, LoadBalancer } from "./loadBalancer.ts";
+
 async function checkBackendAlive(url: string) : Promise<boolean> {
     let isAlive = true 
+
     await new Promise<boolean> ((resolve)=>{
         const timer = setTimeout(()=>{
             isAlive=false;
@@ -21,12 +23,12 @@ async function checkBackendAlive(url: string) : Promise<boolean> {
             clearTimeout(timer)
             resolve(isAlive)
         })
-        
     })
     return isAlive
 }
 
 export function updateBackends(BackendObject : LoadBalancer , interval : number) : void {
+    
     setInterval(async()=>{
         await Promise.all(
             BackendObject.backends.map(async (backend) => {

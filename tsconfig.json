@@ -1,5 +1,7 @@
 {
   // Visit https://aka.ms/tsconfig to read more about this file
+  "include": ["proxy/src/**/*.ts"],
+  "exclude": ["proxy/dist"],
   "compilerOptions": {
     // File Layout
     "rootDir": "./proxy/src",
@@ -37,6 +39,8 @@
     "jsx": "react-jsx",
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,

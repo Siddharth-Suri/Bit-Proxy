@@ -1,11 +1,11 @@
 import http from "http"
-import { rateLimiter } from "./rateLimitter.js"
-import { loadConfig } from "./config.js"
-import { LoadBalancer } from "./loadBalancer.js"
-import { updateBackends } from "./healthCheck.js"
+import { rateLimitter } from "./rateLimitter.ts"
+import { loadConfig } from "./config.ts"
+import { LoadBalancer } from "./loadBalancer.ts"
+import { updateBackends } from "./healthCheck.ts"
 
 const config = loadConfig()
-const userRateLimiterInstance = new rateLimiter(config)
+const userRateLimiterInstance = new rateLimitter(config)
 const loadBalancer = new LoadBalancer(config.backends)
 updateBackends(loadBalancer,config.healthCheck.intervalMs)
 
