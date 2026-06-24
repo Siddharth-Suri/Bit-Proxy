@@ -13,10 +13,17 @@ const metrics = new Metrics()
 updateBackends(loadBalancer, config.healthCheck.intervalMs)
 
 const server = http.createServer((req, res) => {
+
+    if (req.url === '/favicon.ico') {
+        res.writeHead(204)
+        res.end("Favicon request blocked")
+        return
+    }
+
     const ip = req.socket.remoteAddress ?? 'unknown'
 
     if (req.url === '/metrics') {
-        if(ip==='unknown' || ip !== '127.0.0.1' || !ip.startsWith('10.') || !ip.startsWith('192.168.')) {
+        if(ip==='unknown') {
             res.writeHead(403, {'Content-Type': 'text/plain' })
             res.end('Forbidden')
             return 
@@ -99,4 +106,3 @@ const server = http.createServer((req, res) => {
 server.listen(config.server.port, () => {
     console.log(`Proxy started on : ${config.server.port}`)
 })
-
