@@ -29,7 +29,7 @@
 		"refillRate": 10
 	},
 	"healthCheck": {
-		"intervalMs": 300000,
+		"intervalMs": 60000,
 		"timeoutMs": 2000
 	  }
 
