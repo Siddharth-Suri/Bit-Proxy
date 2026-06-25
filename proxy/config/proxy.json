@@ -5,23 +5,31 @@
 	"backends":[
 		{ 
 			"url": "http://localhost:3000",
-			"weight": 3
+			"weight": 12
 		},
 		{ 
 			"url": "http://localhost:3001",
-			"weight": 1 
+			"weight": 8
 		},
 		{ 
 			"url": "http://localhost:3002",
-			"weight": 2 
+			"weight": 4
 		},
 		{ 
 			"url": "http://localhost:3003",
-			"weight": 1 
+			"weight": 2
 		},
 		{ 
 			"url": "http://localhost:3004",
-			"weight": 1 
+			"weight": 6
+		},
+		{ 
+			"url": "http://localhost:3005",
+			"weight": 1
+		},
+		{ 
+			"url": "http://localhost:3006",
+			"weight": 4
 		}
 	],
 	"rateLimit":{
@@ -29,7 +37,7 @@
 		"refillRate": 10
 	},
 	"healthCheck": {
-		"intervalMs": 60000,
+		"intervalMs": 20000,
 		"timeoutMs": 5000
 	  }
 

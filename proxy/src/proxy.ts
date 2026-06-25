@@ -72,6 +72,17 @@ const server = http.createServer((req, res) => {
         method: req.method,
         headers: req.headers,
     }, (backendRes) => {
+        
+        // This is used because i have no way of restarting servers 
+        // Therefore when backend return error : 500 
+        // I mark it as dead manually , instead of shutting the whole server down 
+        // Just for testing 
+        
+        // if(backendRes.statusCode === 500){
+        //     loadBalancer.markDead(backendURL)
+        //     metrics.recordError()
+        // }
+
         const latency = Date.now() - startTime
         metrics.recordLatency(latency)
 
@@ -79,7 +90,7 @@ const server = http.createServer((req, res) => {
         backendRes.pipe(res)
     })
 
-    backendReq.setTimeout(5000, () => {
+    backendReq.setTimeout(config.healthCheck.timeoutMs, () => {
         backendReq.destroy()
         loadBalancer.markDead(backendURL)
         metrics.recordError()
