@@ -30,7 +30,7 @@
 	},
 	"healthCheck": {
 		"intervalMs": 60000,
-		"timeoutMs": 2000
+		"timeoutMs": 5000
 	  }
 
 }

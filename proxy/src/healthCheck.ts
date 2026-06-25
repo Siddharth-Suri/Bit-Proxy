@@ -1,7 +1,7 @@
 import http from "http"
 import type { Backend, LoadBalancer } from "./loadBalancer.ts";
 
-async function checkBackendAlive(url: string) : Promise<boolean> {
+async function checkBackendAlive(url: string , timeout : number) : Promise<boolean> {
     let isAlive = true 
 
     await new Promise<boolean> ((resolve)=>{
@@ -9,7 +9,7 @@ async function checkBackendAlive(url: string) : Promise<boolean> {
             isAlive=false;
             console.log("Backend has died : " + url)
             resolve(isAlive)
-        },5*1000)
+        },timeout)
 
         const req = http.get(url,(res)=>{
             console.log("Backend is up and running broski : "+ url)
@@ -27,12 +27,12 @@ async function checkBackendAlive(url: string) : Promise<boolean> {
     return isAlive
 }
 
-export function updateBackends(BackendObject : LoadBalancer , interval : number) : void {
+export function updateBackends(BackendObject : LoadBalancer , interval : number , timeout : number) : void {
     
     setInterval(async()=>{
         await Promise.all(
             BackendObject.backends.map(async (backend) => {
-                const isAlive = await checkBackendAlive(backend.url)
+                const isAlive = await checkBackendAlive(backend.url, timeout)
                 if (isAlive) BackendObject.markAlive(backend.url)
                 else BackendObject.markDead(backend.url)
             })

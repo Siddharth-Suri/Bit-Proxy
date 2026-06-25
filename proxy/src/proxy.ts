@@ -10,7 +10,7 @@ const userRateLimiterInstance = new rateLimitter(config)
 const loadBalancer = new LoadBalancer(config.backends)
 const metrics = new Metrics()
 
-updateBackends(loadBalancer, config.healthCheck.intervalMs)
+updateBackends(loadBalancer, config.healthCheck.intervalMs , config.healthCheck.timeoutMs)
 
 const server = http.createServer((req, res) => {
 
@@ -48,7 +48,7 @@ const server = http.createServer((req, res) => {
         metrics.recordRejected()
 
         res.writeHead(429, { 'Content-Type': 'text/plain' })
-        res.end('Good Try lil bro, Boom get rate limited lmao')
+        res.end('You have been rate limited')
         return
     }
 

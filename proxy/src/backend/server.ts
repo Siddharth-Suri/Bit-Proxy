@@ -9,7 +9,7 @@ const backend1 = http.createServer((req,res)=>{
 const backend2 = http.createServer((req,res)=>{
     console.log("Reached backend 2")
     setTimeout(()=>{
-        res.end("Hello , Waited 3 seconds for server 2 ")
+        res.end("Hello , Waited 3 seconds for backend 2 ")
     },3*1000)
 }).listen(3001, ()=>{console.log("Backend 2 active on port"+3001)})
 
