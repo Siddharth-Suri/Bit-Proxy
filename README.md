@@ -1,15 +1,32 @@
 # Reverse Proxy
 
-A barebones reverse proxy implemented from scratch using the Node.js `http` module and TypeScript. It has Load balancing across multiple backend servers using `weighted round robin` IP based rate limiting using `token bucket algorithm` and `automated health checks`
+A barebones reverse proxy implemented from scratch using the Node.js `http` module and TypeScript. It supports weighted round robin load balancing, IP based rate limiting using a token bucket algorithm, automated health checks, and real time metrics that updates every 2 seconds.
 
 
 ## How it works 
 
 - Accepts traffic on a single proxy port
-- Applies token bucket rate limiting 
+- Applies token bucket algorithm for rate limiting and protects against DOS attacks
 - Forwards requests to configured backend servers using weighted round robin
-- Uses weighted node.js servers 
-- Tracks backend health with periodic checks
+- Uses weighted node.js servers
+- If server doesn’t respond with `timeoutMs` it is marked as dead
+- Tracks backend health with periodic checks every `intervalMs`
+
+## Test Statistics
+
+Benchmarks were performed using `autocannon` with the rate limiter disabled. Request distribution was also tracked manually using a `Map` to compare weighted round robin against standard round robin.
+
+- **Requests/sec:** +74%
+- **Total requests:** +77%
+- **Average latency:** −43%
+
+### Autocannon
+- [Weighted](/assets/Weighted-AutoCannon.png)
+- [Standard](/assets/UnWeighted-AutoCannon.png)
+
+### Manual Request Distribution
+- [Weighted](/assets/Weighted-Server.png)
+- [Standard](/assets/Unweighted-Server.png)
 
 ## Project Structure
 
@@ -95,4 +112,3 @@ The proxy currently returns:
 
 - Tests and comparison to HAProxy and NGinx
 - Addition of retries 
-- Better structured logs
