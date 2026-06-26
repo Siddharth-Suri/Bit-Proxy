@@ -1,6 +1,6 @@
 # Reverse Proxy
 
-A barebones reverse proxy implemented from scratch using the Node.js `http` module and TypeScript. It supports weighted round robin load balancing, IP based rate limiting using a token bucket algorithm, automated health checks, and real time metrics that updates every 2 seconds.
+A reverse proxy implemented from scratch using the Node.js `http` module and TypeScript. It supports weighted round robin load balancing, IP based rate limiting using a token bucket algorithm, automated health checks, and real time metrics that updates every 2 seconds.
 
 
 ## How it works 
@@ -21,33 +21,36 @@ Benchmarks were performed using `autocannon` with the rate limiter disabled. Req
 - **Average latency:** −43%
 
 ### Autocannon
-- [Weighted](/assets/Weighted-AutoCannon.png)
-- [Standard](/assets/UnWeighted-AutoCannon.png)
+- **Weighted**
 
-### Manual Request Distribution
-- [Weighted](/assets/Weighted-Server.png)
-- [Standard](/assets/Unweighted-Server.png)
+  ![Weighted](/assets/Weighted-AutoCannon.png)
 
-## Project Structure
+- **Standard**
 
-```text
-:
-├── proxy/
-│   ├── config/proxy.json        
-│   └── src/
-│       ├── proxy.ts             
-│       ├── loadBalancer.ts    
-│       ├── healthCheck.ts     
-│       ├── rateLimitter.ts    
-│       ├── metrics.ts     
-│       ├── config.ts          
-│       └── backend/ - server.ts         
-├── index.html            
-├── package.json
-├── pnpm-lock.yaml
-└── tsconfig.json
-```
 
+	![Standard](/assets/UnWeighted-AutoCannon.png)
+
+### Manual Tracking
+- **Weighted**
+  
+	![Weighted](/assets/Weighted-Server.png)
+
+
+- **Standard**
+
+	![Standard](/assets/Unweighted-Server.png)
+
+## Metrics Exposed
+
+The proxy currently returns:
+
+- `totalRequests`
+- `rejectedRequests`
+- `errors`
+- `p50` - 50% of requests completed in less than this time
+- `p90` - 90% of requests completed in less than this time
+- `p95` - 95% of requests completed in less than this time
+- `backendStatus[]`
 
 ## Getting Started
 
@@ -94,18 +97,6 @@ http://localhost:8080/metrics
 ```
 
 You can open `index.html` in a browser to view the metrics. It polls the proxy every 2 seconds.
-
-## Metrics Exposed
-
-The proxy currently returns:
-
-- `totalRequests`
-- `rejectedRequests`
-- `errors`
-- `p50` - 50% of requests completed in less than this time
-- `p90` - 90% of requests completed in less than this time
-- `p95` - 95% of requests completed in less than this time
-- `backendStatus[]`
 
 
 ## Future Improvements
